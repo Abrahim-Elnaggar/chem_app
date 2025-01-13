@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ class_info[0] }} Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .question-box {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .question-box p {
+            margin: 0 0 10px;
+        }
+        .answered {
+            color: green;
+            font-weight: bold;
+        }
+        form {
+            margin-top: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ class_info[0] }} Dashboard</h2>
+        <p>Class Code: {{ class_info[1] }}</p>
+        <h3>Assigned Questions</h3>
+        {% for question in questions %}
+            <div class="question-box">
+                <p>{{ question[1] }}</p>
+                {% if question[0] in answered_questions %}
+                    <p class="answered">Answer Submitted</p>
+                {% else %}
+                    {% if question[2] == 'multiple' %}
+                        <form action="/submit_response/{{ class_id }}/{{ question[0] }}" method="POST">
+                            <input type="radio" name="response_text" value="A"> {{ question[3] }}<br>
+                            <input type="radio" name="response_text" value="B"> {{ question[4] }}<br>
+                            <input type="radio" name="response_text" value="C"> {{ question[5] }}<br>
+                            <input type="radio" name="response_text" value="D"> {{ question[6] }}<br>
+                            <input type="submit" value="Submit Response">
+                        </form>
+                    {% else %}
+                        <a href="/submit_response/{{ class_id }}/{{ question[0] }}">Submit Response</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

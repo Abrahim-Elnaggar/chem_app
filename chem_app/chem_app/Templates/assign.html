@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleQuestionType() {
+            var questionType = document.getElementById("question_type").value;
+            var multipleChoiceOptions = document.getElementById("multiple_choice_options");
+            if (questionType === "multiple") {
+                multipleChoiceOptions.classList.remove("hidden");
+            } else {
+                multipleChoiceOptions.classList.add("hidden");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Assign Question</h2>
+        <form action="/assign_question/{{ class_id }}" method="POST">
+            <label for="question_text">Question:</label>
+            <textarea id="question_text" name="question_text" required></textarea>
+            <label for="question_type">Question Type:</label>
+            <select id="question_type" name="question_type" onchange="toggleQuestionType()" required>
+                <option value="open">Open-ended</option>
+                <option value="multiple">Multiple Choice</option>
+            </select>
+            <div id="multiple_choice_options" class="hidden">
+                <label for="option_a">Option A:</label>
+                <input type="text" id="option_a" name="option_a">
+                <label for="option_b">Option B:</label>
+                <input type="text" id="option_b" name="option_b">
+                <label for="option_c">Option C:</label>
+                <input type="text" id="option_c" name="option_c">
+                <label for="option_d">Option D:</label>
+                <input type="text" id="option_d" name="option_d">
+                <label for="correct_option">Correct Option (A, B, C, or D):</label>
+                <input type="text" id="correct_option" name="correct_option">
+            </div>
+            <input type="submit" value="Assign">
+        </form>
+    </div>
+</body>
+</html>

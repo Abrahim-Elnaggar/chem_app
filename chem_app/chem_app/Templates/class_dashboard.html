@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Class Dashboard</h2>
+        <div class="info">
+            <p>Class Name: {{ class_name }}</p>
+            <p>Class Code: {{ class_code }}</p>
+        </div>
+        <p>This is the dashboard for the class "{{ class_name }}".</p>
+        <p>Students can use the class code "{{ class_code }}" to join this class.</p>
+        <a href="/assign_question/{{ class_id }}">Assign Question</a>
+    </div>
+</body>
+</html>
